@@ -1,27 +1,11 @@
-const User = require("../models/Users");
-const Jobs = require("../models/Jobs");
+const Auth = require("../models/Auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-const { BadRequestError, UnauthError } = require("../errors");
+const { BadRequestError, UnauthError } = require("../error");
 
 const register = async (req, res) => {
-  //encrypting is storing your data behind a firewall
-
-  //hashing scrambles your data into a string of uniform size 
-  // const { name, password, email } = req.body;
-  // console.log(password);
-
-  // //salt is a random bit combination (11010) that is included in the hash
-  // //the salt is then added to the hash so the verifier can check even with randomness
-  // //pepper adds a single letter (a-zA-Z) to the end of your password
-  // const salt = await bcrypt.genSalt(10);
-  // const hashpass = await bcrypt.hash(password, salt);
-  // console.log(hashpass);
-  const newUser = await User.create(req.body);
+  const newUser = await Auth.create(req.body);
   const token = newUser.createJWT();
-  // const token = jwt.sign({ name, email, password }, process.env.JWT_SECRET, {
-  //   expiresIn: "30d",
-  // });
   res.json({ user: {name: newUser.name}, token});
 };
 
@@ -30,7 +14,7 @@ const login = async (req, res) => {
   if(!email || !password){
     throw new BadRequestError('Please provide a username and password')
   }
-  const userLogin = await User.findOne({email});
+  const userLogin = await Auth.findOne({email});
 
   if(!userLogin){
     throw new UnauthError('Invalid credentials');
