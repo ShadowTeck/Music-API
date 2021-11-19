@@ -1,9 +1,9 @@
-const User = require("../models/Users");
-const Jobs = require("../models/Jobs");
+const Auth = require("../models/Auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-const { BadRequestError, UnauthError } = require("../errors");
+const { BadRequestError, UnauthError } = require("../error");
 
+<<<<<<< HEAD
 const registerUser = async (req, res) => {
   //encrypting is storing your data behind a firewall
 
@@ -18,10 +18,11 @@ const registerUser = async (req, res) => {
   // const hashpass = await bcrypt.hash(password, salt);
   // console.log(hashpass);
   const newUser = await User.create(req.body);
+=======
+const register = async (req, res) => {
+  const newUser = await Auth.create(req.body);
+>>>>>>> 85da0a6ff9c6e38723d9405e4d1d604fc68875a8
   const token = newUser.createJWT();
-  // const token = jwt.sign({ name, email, password }, process.env.JWT_SECRET, {
-  //   expiresIn: "30d",
-  // });
   res.json({ user: {name: newUser.name}, token});
 };
 
@@ -30,7 +31,7 @@ const login = async (req, res) => {
   if(!email || !password){
     throw new BadRequestError('Please provide a username and password')
   }
-  const userLogin = await User.findOne({email});
+  const userLogin = await Auth.findOne({email});
 
   if(!userLogin){
     throw new UnauthError('Invalid credentials');

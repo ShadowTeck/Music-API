@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const usersSchema = new mongoose.Schema({
+const authSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "must provide a name"],
@@ -20,12 +20,12 @@ const usersSchema = new mongoose.Schema({
     next();
 })
 
-usersSchema.methods.comparePassword = async function(submittedPassword) {
+authSchema.methods.comparePassword = async function(submittedPassword) {
     const isMatch = await bcrypt.compare(submittedPassword, this.password);
     return isMatch;
 }
 
-usersSchema.methods.createJWT = function () {
+authSchema.methods.createJWT = function () {
     return jwt.sign(
         {userID: this._id, name: this.name},
         process.env.JWT_SECRET,
@@ -36,4 +36,4 @@ usersSchema.methods.createJWT = function () {
 };
 //can do more than one pre
 
-module.exports = mongoose.model("User", usersSchema);
+module.exports = mongoose.model("Auth", authSchema);
