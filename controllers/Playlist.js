@@ -1,5 +1,6 @@
 const getAllPlaylists = async (req, res) => {
     //Gets all the playlists for the user
+    
     res.send(`working`)
 }
 
@@ -27,3 +28,5 @@ const addSong = async (req, res) => {
     //adds specified song
     res.send(`working`)
 }
+
+module.exports = {addSong, deleteSong, updatePlaylist, createPlaylist, getPlaylist, getAllPlaylists}
