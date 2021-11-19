@@ -37,11 +37,9 @@ const addSong = async (req, res) => {
   res.send(`working`);
 };
 
-module.exports = {
-  addSong,
-  deleteSong,
-  updatePlaylist,
-  createPlaylist,
-  getPlaylist,
-  getAllPlaylists,
-};
+const editSong = async (req, res) => {
+    //edits specified song
+    res.send(`working`)
+}
+
+module.exports = {addSong, deleteSong, editSong, updatePlaylist, createPlaylist, getPlaylist, getAllPlaylists}

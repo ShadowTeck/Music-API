@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { BadRequestError, UnauthError } = require("../error");
 
-const register = async (req, res) => {
+const registerUser = async (req, res) => {
   const newUser = await Auth.create(req.body);
   const token = newUser.createJWT();
   res.json({ user: {name: newUser.name}, token});
 };
 
-const login = async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if(!email || !password){
     throw new BadRequestError('Please provide a username and password')
@@ -33,4 +33,4 @@ const login = async (req, res) => {
   res.json({ user: {name: userLogin.name}, token});
 };
 
-module.exports = { login, register };
+module.exports = { loginUser, registerUser };
