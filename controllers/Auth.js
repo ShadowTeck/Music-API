@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { BadRequestError, UnauthError } = require("../errors");
 
-const register = async (req, res) => {
+const registerUser = async (req, res) => {
   //encrypting is storing your data behind a firewall
 
   //hashing scrambles your data into a string of uniform size 
@@ -49,4 +49,4 @@ const login = async (req, res) => {
   res.json({ user: {name: userLogin.name}, token});
 };
 
-module.exports = { login, register };
+module.exports = { login, registerUser };
