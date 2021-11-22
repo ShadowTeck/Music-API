@@ -40,8 +40,23 @@ const createPlaylist = async (req, res) => {
 
 const updatePlaylist = async (req, res) => {
   //Updates a playlist by either changing the name of it, adding a song, or deleting a song
-  
-  res.send(`working`);
+    const {userID} = req.user
+    const {id: playlistID} = req.params
+
+    if(!name) {
+        throw new BadRequestError("name field must be filled")
+    }
+
+    const playlist = await Playlist.findByIdAndUpdate(
+        { _id: playlistID, createdBy: userID },
+        req.body,        
+        {new: true, runValidators: true}
+    )
+
+    if (!playlist) {
+        throw new NotFoundError(`no playlist with id ${playlistID}`)
+    }
+    res.status(StatusCodes.OK).json({ playlist });
 };
 
 const deleteSong = async (req, res) => {
