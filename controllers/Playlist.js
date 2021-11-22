@@ -32,12 +32,12 @@ const updatePlaylist = async (req, res) => {
 
 const deleteSong = async (req, res) => {
   //deletes specified song
-  res.send(`working`);
+  res.json(`working`);
 };
 
 const addSong = async (req, res) => {
   //adds specified song
-  res.send(`working`);
+  res.json(`working`);
 };
 
 const editSong = async (req, res) => {

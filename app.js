@@ -51,7 +51,11 @@ app
     //.use("/api-docs", SwaggerUI.serve, SwaggerUI.setup(swaggerDocs))
     //.use('/api/v1', routes)
     // .use('/api/v1/playlists', Authentication, playlist)
+<<<<<<< HEAD
     .use('/api/v1/playlists', Authentication, playlist)
+=======
+    .use('/api/v1/playlist', playlist)
+>>>>>>> 5c4205529471898e7818a3ba2587d1210731e620
     .use('/api/v1/auth', auth)
 
     .use(notFound)
