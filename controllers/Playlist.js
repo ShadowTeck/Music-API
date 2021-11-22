@@ -40,6 +40,7 @@ const createPlaylist = async (req, res) => {
 
 const updatePlaylist = async (req, res) => {
   //Updates a playlist by either changing the name of it, adding a song, or deleting a song
+    const {name} = req.body
     const {userID} = req.user
     const {id: playlistID} = req.params
 
