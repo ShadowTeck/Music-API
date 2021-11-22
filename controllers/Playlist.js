@@ -20,6 +20,7 @@ const createPlaylist = async (req, res) => {
   const playlist = await Playlist.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ playlist });
+  res.json({status: 200, results: 'success'})
 };
 
 const updatePlaylist = async (req, res) => {
