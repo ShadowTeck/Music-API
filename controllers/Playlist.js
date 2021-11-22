@@ -1,5 +1,6 @@
 const Playlist = require("../Models/Playlist");
 const {StatusCodes} = require('http-status-codes');
+const {BadRequestError, NotFoundError} = require('../error')
 
 
 const getAllPlaylists = async (req, res) => {
@@ -10,7 +11,20 @@ const getAllPlaylists = async (req, res) => {
 
 const getPlaylist = async (req, res) => {
   //Gets one playlist from user
-  res.send(`working`);
+
+  const { userID } = req.body
+  const { id: playlistID } = req.params
+
+  const playlist = await Playlist.findById({
+    _id: playlistID,
+    createdBy: userID
+  })
+
+  if(!playlist) {
+    throw new NotFoundError(`no job with id ${playlistID}`)
+  }
+
+  res.status(StatusCodes.OK).json({ playlist })
 };
 
 const createPlaylist = async (req, res) => {
