@@ -8,7 +8,11 @@ const playlistSchema = new mongoose.Schema(
             required: [true, 'must provide a playlist name'],
             maxLength: 30
         },
-
+        createdBy: {
+            type: mongoose.Types.ObjectId,
+            ref: "User",
+            required: [true, 'could not create "createdBy"'],
+          }
     }
 )
 
