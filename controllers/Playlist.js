@@ -3,6 +3,10 @@ const {StatusCodes} = require('http-status-codes');
 const {BadRequestError, NotFoundError} = require('../error');
 const Song = require("../Models/Song");
 
+// const library = {
+//   songs: [song, song, song]
+// }
+
 
 const getAllPlaylists = async (req, res) => {
   //Gets all the playlists for the user
@@ -22,7 +26,7 @@ const getPlaylist = async (req, res) => {
   })
 
   if(!playlist) {
-    throw new NotFoundError(`no job with id ${playlistID}`)
+    throw new NotFoundError(`no playist with id ${playlistID}`)
   }
 
   res.status(StatusCodes.OK).json({ playlist })
@@ -60,7 +64,7 @@ const updatePlaylist = async (req, res) => {
 };
 
 const deletePlaylist = async (req, res) => {
-
+  
 }
 
 const deleteSong = async (req, res) => {
@@ -75,7 +79,19 @@ const addSong = async (req, res) => {
 };
 
 const getSong = async (req, res) => {
+  const { userID } = req.body
+  const { id: songID } = req.params
 
+  const song = await Song.findById({
+    _id: songID,
+    createdBy: userID
+  })
+
+  if(!song) {
+    throw new NotFoundError(`no song with id ${songID}`)
+  }
+
+  res.status(StatusCodes.OK).json({ song })
 }
 
 const getAllSongs = async (req, res) => {
