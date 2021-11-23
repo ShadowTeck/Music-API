@@ -31,9 +31,7 @@ const getPlaylist = async (req, res) => {
 const createPlaylist = async (req, res) => {
   // const {userID} = req.user;
   //creates/adds playlist to playlists
-  console.log(req.user.userID);
   req.body.createdBy = req.user.userID;
-  console.log(req.body);
   const playlist = await Playlist.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ playlist });
@@ -61,6 +59,10 @@ const updatePlaylist = async (req, res) => {
     res.status(StatusCodes.OK).json({ playlist });
 };
 
+const deletePlaylist = async (req, res) => {
+
+}
+
 const deleteSong = async (req, res) => {
   //d
   res.json(`working`);
@@ -69,9 +71,17 @@ const deleteSong = async (req, res) => {
 const addSong = async (req, res) => {
   req.body.createdBy = req.user.userID;
   const song = await Song.create(req.body);
-
-  res.status(StatusCodes.CREATED).json({ playlist });
+  res.status(StatusCodes.CREATED).json({ song });
 };
+
+const getSong = async (req, res) => {
+
+}
+
+const getAllSongs = async (req, res) => {
+
+}
+
 
 const editSong = async (req, res) => {
   //edits specified song
@@ -87,4 +97,7 @@ module.exports = {
   createPlaylist,
   getPlaylist,
   getAllPlaylists,
+  deletePlaylist,
+  getSong,
+  getAllSongs
 };

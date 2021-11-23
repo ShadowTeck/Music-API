@@ -4,6 +4,7 @@ const {getAllPlaylists, getPlaylist, createPlaylist, updatePlaylist, deleteSong,
 
 
 router.route('/').get(getAllPlaylists).post(createPlaylist)
-router.route('/:id').get(getPlaylist).delete(deleteSong).patch(updatePlaylist).put(addSong)
+router.route('/songs').post(addSong)
+router.route('/:id').get(getPlaylist).delete(deleteSong).patch(updatePlaylist)
 
 module.exports = router;
