@@ -1,6 +1,7 @@
 const Playlist = require("../Models/Playlist");
 const {StatusCodes} = require('http-status-codes');
-const {BadRequestError, NotFoundError} = require('../error')
+const {BadRequestError, NotFoundError} = require('../error');
+const Song = require("../Models/Song");
 
 
 const getAllPlaylists = async (req, res) => {
@@ -61,19 +62,22 @@ const updatePlaylist = async (req, res) => {
 };
 
 const deleteSong = async (req, res) => {
-  //deletes specified song
+  //d
   res.json(`working`);
 };
 
 const addSong = async (req, res) => {
-  //adds specified song
-  res.json(`working`);
+  req.body.createdBy = req.user.userID;
+  const song = await Song.create(req.body);
+
+  res.status(StatusCodes.CREATED).json({ playlist });
 };
 
 const editSong = async (req, res) => {
   //edits specified song
   res.send(`working`);
 };
+
 
 module.exports = {
   addSong,
