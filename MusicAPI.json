@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "dd1b183a-cc8f-4903-a20d-c000f78e4691",
+		"name": "Music API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEV_URL_AUTH}}/register",
+							"host": [
+								"{{DEV_URL_AUTH}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"\r",
+									"pm.globals.set(\"JobToken\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{JobToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEV_URL_AUTH}}/login",
+							"host": [
+								"{{DEV_URL_AUTH}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlist",
+			"item": [
+				{
+					"name": "Songs",
+					"item": [
+						{
+							"name": "Delete Song",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JobToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DEV_URL_PLAYLIST}}/songs/:id",
+									"host": [
+										"{{DEV_URL_PLAYLIST}}"
+									],
+									"path": [
+										"songs",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "619d62525fc709071380a5d9"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Song",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JobToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"hello\",\r\n    \"artist\": \"hello\",\r\n    \"playlist\": \"meowwww\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DEV_URL_PLAYLIST}}/songs",
+									"host": [
+										"{{DEV_URL_PLAYLIST}}"
+									],
+									"path": [
+										"songs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Song",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JobToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"songNew\",\r\n    \"artist\": \"artistNew\",\r\n    \"playlist\": \"meow\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DEV_URL_PLAYLIST}}/songs/:id",
+									"host": [
+										"{{DEV_URL_PLAYLIST}}"
+									],
+									"path": [
+										"songs",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "619d62525fc709071380a5d9"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Song",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JobToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DEV_URL_PLAYLIST}}/songs/:id",
+									"host": [
+										"{{DEV_URL_PLAYLIST}}"
+									],
+									"path": [
+										"songs",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "619d61765fc709071380a5d2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Songs",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JobToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DEV_URL_PLAYLIST}}/songs",
+									"host": [
+										"{{DEV_URL_PLAYLIST}}"
+									],
+									"path": [
+										"songs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JobToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"myPlaylist\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEV_URL_PLAYLIST}}",
+							"host": [
+								"{{DEV_URL_PLAYLIST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Playlists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JobToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DEV_URL_PLAYLIST}}",
+							"host": [
+								"{{DEV_URL_PLAYLIST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JobToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DEV_URL_PLAYLIST}}/:id",
+							"host": [
+								"{{DEV_URL_PLAYLIST}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "619d62a35fc709071380a5df"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Playlist",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JobToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NEW STUFF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEV_URL_PLAYLIST}}/:id",
+							"host": [
+								"{{DEV_URL_PLAYLIST}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "619d62a35fc709071380a5df"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JobToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DEV_URL_PLAYLIST}}/:id",
+							"host": [
+								"{{DEV_URL_PLAYLIST}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "619d62a35fc709071380a5df"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
