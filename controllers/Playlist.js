@@ -64,7 +64,19 @@ const updatePlaylist = async (req, res) => {
 };
 
 const deletePlaylist = async (req, res) => {
-  
+  const {
+    user: { userID },
+    params: {id: playlistID}
+ } = req
+
+const playlist = await Playlist.findByIdAndRemove({
+    _id: playlistID,
+    createdBy: userID,
+})
+if (!playlist) {
+    throw new NotFoundError(`no playlist with id ${playlistID}`)
+}
+res.status(StatusCodes.OK).json({playlist})
 }
 
 const deleteSong = async (req, res) => {
